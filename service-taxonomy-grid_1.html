@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accounting & Tax Advisory Services Taxonomy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accounting-bg: rgba(37, 99, 235, 0.08);
+    --accounting-border: rgba(37, 99, 235, 0.22);
+    --accounting-accent: #2563eb;
+    --accounting-pill: rgba(37, 99, 235, 0.10);
+    --accounting-light: rgba(37, 99, 235, 0.05);
+
+    --audit-bg: rgba(139, 92, 246, 0.08);
+    --audit-border: rgba(139, 92, 246, 0.22);
+    --audit-accent: #7c3aed;
+    --audit-pill: rgba(139, 92, 246, 0.10);
+    --audit-light: rgba(139, 92, 246, 0.05);
+
+    --tax-bg: rgba(16, 185, 129, 0.08);
+    --tax-border: rgba(16, 185, 129, 0.22);
+    --tax-accent: #059669;
+    --tax-pill: rgba(16, 185, 129, 0.10);
+    --tax-light: rgba(16, 185, 129, 0.05);
+
+    --advisory-bg: rgba(245, 158, 11, 0.07);
+    --advisory-border: rgba(245, 158, 11, 0.22);
+    --advisory-accent: #d97706;
+    --advisory-pill: rgba(245, 158, 11, 0.10);
+    --advisory-light: rgba(245, 158, 11, 0.05);
+
+    --ancillary-bg: rgba(239, 68, 68, 0.07);
+    --ancillary-border: rgba(239, 68, 68, 0.20);
+    --ancillary-accent: #dc2626;
+    --ancillary-pill: rgba(239, 68, 68, 0.10);
+    --ancillary-light: rgba(239, 68, 68, 0.05);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f8f7f4;
+    color: #1a1a1a;
+    padding: 40px 48px;
+    min-height: 100vh;
+  }
+
+  .page-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .page-header h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 30px;
+    color: #111;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+
+  .page-header p {
+    font-size: 13px;
+    color: #888;
+    font-weight: 400;
+  }
+
+  .grid-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .top-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+
+  .bottom-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .category-box {
+    border-radius: 14px;
+    padding: 24px 26px;
+    display: flex;
+    flex-direction: column;
+    animation: fadeUp 0.45s ease both;
+  }
+
+  .top-row .category-box:nth-child(1) { animation-delay: 0.04s; }
+  .top-row .category-box:nth-child(2) { animation-delay: 0.1s; }
+  .top-row .category-box:nth-child(3) { animation-delay: 0.16s; }
+  .bottom-row .category-box:nth-child(1) { animation-delay: 0.22s; }
+  .bottom-row .category-box:nth-child(2) { animation-delay: 0.28s; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .category-box.accounting { background: var(--accounting-bg); border: 1.5px solid var(--accounting-border); }
+  .category-box.audit      { background: var(--audit-bg);      border: 1.5px solid var(--audit-border); }
+  .category-box.tax        { background: var(--tax-bg);        border: 1.5px solid var(--tax-border); }
+  .category-box.advisory   { background: var(--advisory-bg);   border: 1.5px solid var(--advisory-border); }
+  .category-box.ancillary  { background: var(--ancillary-bg);  border: 1.5px solid var(--ancillary-border); }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+  }
+
+  .category-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 17px;
+  }
+
+  .category-box.accounting .category-title { color: var(--accounting-accent); }
+  .category-box.audit .category-title      { color: var(--audit-accent); }
+  .category-box.tax .category-title        { color: var(--tax-accent); }
+  .category-box.advisory .category-title   { color: var(--advisory-accent); }
+  .category-box.ancillary .category-title  { color: var(--ancillary-accent); }
+
+  .category-count {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+  }
+
+  .category-box.accounting .category-count { background: var(--accounting-pill); color: var(--accounting-accent); }
+  .category-box.audit .category-count      { background: var(--audit-pill);      color: var(--audit-accent); }
+  .category-box.tax .category-count        { background: var(--tax-pill);        color: var(--tax-accent); }
+  .category-box.advisory .category-count   { background: var(--advisory-pill);   color: var(--advisory-accent); }
+  .category-box.ancillary .category-count  { background: var(--ancillary-pill);  color: var(--ancillary-accent); }
+
+  .category-subtitle {
+    font-size: 11.5px;
+    color: #999;
+    margin-bottom: 16px;
+    font-weight: 400;
+  }
+
+  .sub-categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .sub-box {
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(4px);
+    border-radius: 9px;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #2a2a2a;
+    line-height: 1.3;
+    flex: 1 1 auto;
+    min-width: calc(50% - 4px);
+    transition: all 0.2s ease;
+    border: 1px solid rgba(0,0,0,0.04);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.025);
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+  }
+
+  .sub-box:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.95);
+  }
+
+  .sub-box:active {
+    transform: translateY(0);
+  }
+
+  .category-box.accounting .sub-box { border-left: 3px solid rgba(37, 99, 235, 0.3); }
+  .category-box.audit .sub-box      { border-left: 3px solid rgba(139, 92, 246, 0.3); }
+  .category-box.tax .sub-box        { border-left: 3px solid rgba(16, 185, 129, 0.3); }
+  .category-box.advisory .sub-box   { border-left: 3px solid rgba(245, 158, 11, 0.3); }
+  .category-box.ancillary .sub-box  { border-left: 3px solid rgba(239, 68, 68, 0.3); }
+
+  .bottom-row .sub-box {
+    min-width: calc(33.33% - 6px);
+  }
+
+  /* Chevron indicator */
+  .sub-box::after {
+    content: '';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid #aaa;
+    border-bottom: 1.5px solid #aaa;
+    transform: translateY(-50%) rotate(45deg);
+    transition: transform 0.25s ease, opacity 0.2s ease;
+    opacity: 0.5;
+  }
+
+  .sub-box:hover::after {
+    opacity: 0.8;
+  }
+
+  .sub-box .sub-label {
+    padding-right: 18px;
+  }
+
+  /* ═══════════════════════════════════
+     MODAL OVERLAY
+     ═══════════════════════════════════ */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+    padding: 40px;
+  }
+
+  .modal-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal-panel {
+    background: #fff;
+    border-radius: 16px;
+    padding: 0;
+    max-width: 560px;
+    width: 100%;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05);
+    transform: translateY(16px) scale(0.97);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .modal-overlay.active .modal-panel {
+    transform: translateY(0) scale(1);
+  }
+
+  .modal-header {
+    padding: 24px 28px 16px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+
+  .modal-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .modal-cat-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    opacity: 0.7;
+  }
+
+  .modal-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 20px;
+    color: #111;
+    line-height: 1.25;
+  }
+
+  .modal-close {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #e5e5e5;
+    background: #fafafa;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #666;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .modal-close:hover {
+    background: #f0f0f0;
+    color: #333;
+  }
+
+  .modal-body {
+    padding: 12px 28px 28px;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .modal-service-count {
+    font-size: 11.5px;
+    color: #999;
+    margin-bottom: 14px;
+    padding-top: 8px;
+  }
+
+  .service-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f5;
+    animation: serviceSlide 0.3s ease both;
+  }
+
+  .service-item:last-child {
+    border-bottom: none;
+  }
+
+  @keyframes serviceSlide {
+    from { opacity: 0; transform: translateX(-8px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .service-num {
+    font-size: 10px;
+    font-weight: 700;
+    min-width: 26px;
+    height: 22px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .service-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #2a2a2a;
+    line-height: 1.4;
+  }
+
+  /* Category-specific modal accent colors */
+  .modal-panel[data-cat="accounting"] .modal-cat-label { color: var(--accounting-accent); }
+  .modal-panel[data-cat="accounting"] .modal-title { color: var(--accounting-accent); }
+  .modal-panel[data-cat="accounting"] .service-num { background: var(--accounting-pill); color: var(--accounting-accent); }
+  .modal-panel[data-cat="accounting"] .modal-header { border-bottom-color: rgba(37, 99, 235, 0.1); }
+
+  .modal-panel[data-cat="audit"] .modal-cat-label { color: var(--audit-accent); }
+  .modal-panel[data-cat="audit"] .modal-title { color: var(--audit-accent); }
+  .modal-panel[data-cat="audit"] .service-num { background: var(--audit-pill); color: var(--audit-accent); }
+  .modal-panel[data-cat="audit"] .modal-header { border-bottom-color: rgba(139, 92, 246, 0.1); }
+
+  .modal-panel[data-cat="tax"] .modal-cat-label { color: var(--tax-accent); }
+  .modal-panel[data-cat="tax"] .modal-title { color: var(--tax-accent); }
+  .modal-panel[data-cat="tax"] .service-num { background: var(--tax-pill); color: var(--tax-accent); }
+  .modal-panel[data-cat="tax"] .modal-header { border-bottom-color: rgba(16, 185, 129, 0.1); }
+
+  .modal-panel[data-cat="advisory"] .modal-cat-label { color: var(--advisory-accent); }
+  .modal-panel[data-cat="advisory"] .modal-title { color: var(--advisory-accent); }
+  .modal-panel[data-cat="advisory"] .service-num { background: var(--advisory-pill); color: var(--advisory-accent); }
+  .modal-panel[data-cat="advisory"] .modal-header { border-bottom-color: rgba(245, 158, 11, 0.1); }
+
+  .modal-panel[data-cat="ancillary"] .modal-cat-label { color: var(--ancillary-accent); }
+  .modal-panel[data-cat="ancillary"] .modal-title { color: var(--ancillary-accent); }
+  .modal-panel[data-cat="ancillary"] .service-num { background: var(--ancillary-pill); color: var(--ancillary-accent); }
+  .modal-panel[data-cat="ancillary"] .modal-header { border-bottom-color: rgba(239, 68, 68, 0.1); }
+
+  @media (max-width: 1000px) {
+    .top-row { grid-template-columns: 1fr; }
+    .bottom-row { grid-template-columns: 1fr; }
+    body { padding: 24px 16px; }
+    .bottom-row .sub-box { min-width: calc(50% - 4px); }
+    .modal-overlay { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <h1>Accounting &amp; Tax Advisory Services Taxonomy</h1>
+  <p>83 services · 25 sub-categories · 5 service lines — click any sub-category to explore</p>
+</div>
+
+<div class="grid-container">
+
+  <!-- TOP ROW -->
+  <div class="top-row">
+
+    <div class="category-box accounting">
+      <div class="category-header">
+        <div class="category-title">Accounting</div>
+        <span class="category-count">6 sub-categories</span>
+      </div>
+      <div class="category-subtitle">Core, specialized &amp; forensic accounting services</div>
+      <div class="sub-categories">
+        <div class="sub-box" data-cat="accounting" data-sub="core_accounting"><span class="sub-label">Core Accounting &amp; Bookkeeping</span></div>
+        <div class="sub-box" data-cat="accounting" data-sub="tech_accounting"><span class="sub-label">Technical &amp; Specialized Accounting</span></div>
+        <div class="sub-box" data-cat="accounting" data-sub="acct_systems"><span class="sub-label">Accounting Systems &amp; Technology</span></div>
+        <div class="sub-box" data-cat="accounting" data-sub="property_acct"><span class="sub-label">Property &amp; Real Estate Accounting</span></div>
+        <div class="sub-box" data-cat="accounting" data-sub="govt_grant"><span class="sub-label">Government &amp; Grant Accounting</span></div>
+        <div class="sub-box" data-cat="accounting" data-sub="forensic_acct"><span class="sub-label">Forensic Accounting &amp; Investigations</span></div>
+      </div>
+    </div>
+
+    <div class="category-box audit">
+      <div class="category-header">
+        <div class="category-title">Audit &amp; Attestation</div>
+        <span class="category-count">5 sub-categories</span>
+      </div>
+      <div class="category-subtitle">Assurance, compliance &amp; regulatory audits</div>
+      <div class="sub-categories">
+        <div class="sub-box" data-cat="audit" data-sub="general_audit"><span class="sub-label">General Audit &amp; Assurance</span></div>
+        <div class="sub-box" data-cat="audit" data-sub="compilations"><span class="sub-label">Compilations &amp; Reviews</span></div>
+        <div class="sub-box" data-cat="audit" data-sub="specialized_audit"><span class="sub-label">Specialized &amp; Regulatory Audits</span></div>
+        <div class="sub-box" data-cat="audit" data-sub="internal_audit"><span class="sub-label">Internal Audit &amp; Controls</span></div>
+        <div class="sub-box" data-cat="audit" data-sub="royalty_audit"><span class="sub-label">Royalty &amp; Contract Compliance Audits</span></div>
+      </div>
+    </div>
+
+    <div class="category-box tax">
+      <div class="category-header">
+        <div class="category-title">Tax</div>
+        <span class="category-count">5 sub-categories</span>
+      </div>
+      <div class="category-subtitle">Federal, state, international &amp; strategic tax</div>
+      <div class="sub-categories">
+        <div class="sub-box" data-cat="tax" data-sub="federal_tax"><span class="sub-label">Federal &amp; Income Tax</span></div>
+        <div class="sub-box" data-cat="tax" data-sub="salt"><span class="sub-label">State &amp; Local Tax (SALT)</span></div>
+        <div class="sub-box" data-cat="tax" data-sub="intl_tax"><span class="sub-label">International &amp; Multi-State Tax</span></div>
+        <div class="sub-box" data-cat="tax" data-sub="tax_credits"><span class="sub-label">Tax Credits &amp; Incentives</span></div>
+        <div class="sub-box" data-cat="tax" data-sub="strategic_tax"><span class="sub-label">Strategic &amp; Business Tax Planning</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM ROW -->
+  <div class="bottom-row">
+
+    <div class="category-box advisory">
+      <div class="category-header">
+        <div class="category-title">Advisory</div>
+        <span class="category-count">7 sub-categories</span>
+      </div>
+      <div class="category-subtitle">Wealth, estate, deal &amp; business advisory services</div>
+      <div class="sub-categories">
+        <div class="sub-box" data-cat="advisory" data-sub="private_wealth"><span class="sub-label">Private Client &amp; Wealth Tax</span></div>
+        <div class="sub-box" data-cat="advisory" data-sub="estate_planning"><span class="sub-label">Estate, Trust &amp; Succession Planning</span></div>
+        <div class="sub-box" data-cat="advisory" data-sub="family_office"><span class="sub-label">Family Office Solutions</span></div>
+        <div class="sub-box" data-cat="advisory" data-sub="retirement_comp"><span class="sub-label">Retirement &amp; Compensation Planning</span></div>
+        <div class="sub-box" data-cat="advisory" data-sub="biz_advisory"><span class="sub-label">Business Advisory &amp; Consulting</span></div>
+        <div class="sub-box" data-cat="advisory" data-sub="deal_advisory"><span class="sub-label">Transaction &amp; Deal Advisory</span></div>
+        <div class="sub-box" data-cat="advisory" data-sub="litigation"><span class="sub-label">Litigation, Dispute &amp; Risk Advisory</span></div>
+      </div>
+    </div>
+
+    <div class="category-box ancillary">
+      <div class="category-header">
+        <div class="category-title">Ancillary Services</div>
+        <span class="category-count">2 sub-categories</span>
+      </div>
+      <div class="category-subtitle">Outsourced operations, compliance &amp; consulting</div>
+      <div class="sub-categories">
+        <div class="sub-box" data-cat="ancillary" data-sub="outsourced_ops"><span class="sub-label">Outsourced CFO, HR &amp; IT Services</span></div>
+        <div class="sub-box" data-cat="ancillary" data-sub="reg_compliance"><span class="sub-label">Regulatory Compliance &amp; Specialized Consulting</span></div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-panel" id="modalPanel">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-cat-label" id="modalCatLabel"></div>
+        <div class="modal-title" id="modalTitle"></div>
+      </div>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+const serviceData = {
+  // ── ACCOUNTING ──
+  core_accounting: {
+    category: "Accounting",
+    title: "Core Accounting & Bookkeeping",
+    services: [
+      { num: 1,  name: "Client/Outsourced Accounting Services" },
+      { num: 11, name: "Outsourced Accounting (Bookkeeping, Payroll, etc.)" },
+      { num: 80, name: "Outsourced Accounting (Standalone Ancillary)" },
+      { num: 77, name: "Client Accounting Services (Fractional CFO)" }
+    ]
+  },
+  tech_accounting: {
+    category: "Accounting",
+    title: "Technical & Specialized Accounting",
+    services: [
+      { num: 7, name: "Technical Accounting" },
+      { num: 5, name: "Revenue Recognition" },
+      { num: 4, name: "Lease Accounting Services" },
+      { num: 3, name: "IFRS Reporting" }
+    ]
+  },
+  acct_systems: {
+    category: "Accounting",
+    title: "Accounting Systems & Technology",
+    services: [
+      { num: 2, name: "Accounting System Consulting, Design and Implementation" }
+    ]
+  },
+  property_acct: {
+    category: "Accounting",
+    title: "Property & Real Estate Accounting",
+    services: [
+      { num: 6,  name: "Property Accounting" },
+      { num: 71, name: "Real Estate Fund Administration" }
+    ]
+  },
+  govt_grant: {
+    category: "Accounting",
+    title: "Government & Grant Accounting",
+    services: [
+      { num: 8, name: "Federal Government Contracting / FAR" },
+      { num: 9, name: "Grant Accounting & Management" }
+    ]
+  },
+  forensic_acct: {
+    category: "Accounting",
+    title: "Forensic Accounting & Investigations",
+    services: [
+      { num: 10, name: "Forensic Accounting & Agreed-Upon Procedures" },
+      { num: 19, name: "Forensic Audits" }
+    ]
+  },
+
+  // ── AUDIT & ATTESTATION ──
+  general_audit: {
+    category: "Audit & Attestation",
+    title: "General Audit & Assurance",
+    services: [
+      { num: 12, name: "Audit & Assurance" },
+      { num: 23, name: "Assurance Services" },
+      { num: 25, name: "General Audit Services" },
+      { num: 22, name: "Agreed Upon Procedures" }
+    ]
+  },
+  compilations: {
+    category: "Audit & Attestation",
+    title: "Compilations & Reviews",
+    services: [
+      { num: 13, name: "Compilations & Reviews" },
+      { num: 24, name: "Reviews & Compilations" }
+    ]
+  },
+  specialized_audit: {
+    category: "Audit & Attestation",
+    title: "Specialized & Regulatory Audits",
+    services: [
+      { num: 15, name: "401(k) Employee Benefit Plan Audits" },
+      { num: 16, name: "SEC Audit" },
+      { num: 20, name: "Defense Contract Audit Agency Audits" },
+      { num: 21, name: "SOX 404 Internal Control Audits" }
+    ]
+  },
+  internal_audit: {
+    category: "Audit & Attestation",
+    title: "Internal Audit & Controls",
+    services: [
+      { num: 14, name: "Internal Audit Services" },
+      { num: 17, name: "SOC Reporting Services" }
+    ]
+  },
+  royalty_audit: {
+    category: "Audit & Attestation",
+    title: "Royalty & Contract Compliance Audits",
+    services: [
+      { num: 18, name: "Intellectual Property Royalty Audits" },
+      { num: 81, name: "Royalty Exams & Contract Compliance" }
+    ]
+  },
+
+  // ── TAX ──
+  federal_tax: {
+    category: "Tax",
+    title: "Federal & Income Tax",
+    services: [
+      { num: 29, name: "Federal Tax" },
+      { num: 30, name: "Income Taxes" },
+      { num: 44, name: "Tax Compliance and Preparation" }
+    ]
+  },
+  salt: {
+    category: "Tax",
+    title: "State & Local Tax (SALT)",
+    services: [
+      { num: 38, name: "SALT (State and Local Tax)" },
+      { num: 39, name: "Sales & Use Tax" },
+      { num: 41, name: "State & Local Tax Strategies" },
+      { num: 26, name: "California Civil Code Section 5300" }
+    ]
+  },
+  intl_tax: {
+    category: "Tax",
+    title: "International & Multi-State Tax",
+    services: [
+      { num: 31, name: "International Tax" },
+      { num: 33, name: "Multi-State & International Tax Advisory" }
+    ]
+  },
+  tax_credits: {
+    category: "Tax",
+    title: "Tax Credits & Incentives",
+    services: [
+      { num: 27, name: "Cost Segregation Services" },
+      { num: 28, name: "Energy Tax Credits & Incentives" },
+      { num: 34, name: "New Markets Tax Credits" },
+      { num: 35, name: "Opportunity Zones" },
+      { num: 37, name: "R&D Tax Credits" },
+      { num: 42, name: "State Credits & Incentives" }
+    ]
+  },
+  strategic_tax: {
+    category: "Tax",
+    title: "Strategic & Business Tax Planning",
+    services: [
+      { num: 32, name: "M&A Tax Strategy & Due Diligence" },
+      { num: 40, name: "Section 199A" },
+      { num: 43, name: "Strategic Tax Planning" },
+      { num: 45, name: "Business Tax Planning" }
+    ]
+  },
+
+  // ── ADVISORY ──
+  private_wealth: {
+    category: "Advisory",
+    title: "Private Client & Wealth Tax",
+    services: [
+      { num: 36, name: "Private Client Tax Services" },
+      { num: 60, name: "Family Wealth & Legacy Planning" },
+      { num: 74, name: "Wealth Management" }
+    ]
+  },
+  estate_planning: {
+    category: "Advisory",
+    title: "Estate, Trust & Succession Planning",
+    services: [
+      { num: 49, name: "Estate Planning" },
+      { num: 50, name: "Succession Planning" },
+      { num: 46, name: "Life Insurance Planning & Integration" }
+    ]
+  },
+  family_office: {
+    category: "Advisory",
+    title: "Family Office Solutions",
+    services: [
+      { num: 61, name: "Family Office Solutions" },
+      { num: 72, name: "Family Office Solutions (Ancillary Context)" }
+    ]
+  },
+  retirement_comp: {
+    category: "Advisory",
+    title: "Retirement & Compensation Planning",
+    services: [
+      { num: 47, name: "Business Retirement Plan Services" },
+      { num: 51, name: "Retirement Income Planning" },
+      { num: 54, name: "Executive Compensation & Equity Planning" },
+      { num: 53, name: "Holistic Financial Planning" },
+      { num: 65, name: "Compensation Resources" }
+    ]
+  },
+  biz_advisory: {
+    category: "Advisory",
+    title: "Business Advisory & Consulting",
+    services: [
+      { num: 48, name: "Strategic Business Planning" },
+      { num: 55, name: "Entity Structuring & Restructuring" },
+      { num: 58, name: "Business Management Consulting" },
+      { num: 62, name: "Consulting" },
+      { num: 75, name: "Business Management (Ancillary Offering)" },
+      { num: 56, name: "Board Facilitation & Training" }
+    ]
+  },
+  deal_advisory: {
+    category: "Advisory",
+    title: "Transaction & Deal Advisory",
+    services: [
+      { num: 59, name: "Deal Advisory" },
+      { num: 76, name: "Business Valuations" }
+    ]
+  },
+  litigation: {
+    category: "Advisory",
+    title: "Litigation, Dispute & Risk Advisory",
+    services: [
+      { num: 52, name: "Litigation Support" },
+      { num: 57, name: "Risk Advisory" },
+      { num: 63, name: "Dispute Advisory" },
+      { num: 83, name: "Settlement Administration" }
+    ]
+  },
+
+  // ── ANCILLARY ──
+  outsourced_ops: {
+    category: "Ancillary Services",
+    title: "Outsourced CFO, HR & IT Services",
+    services: [
+      { num: 64, name: "Payroll Services" },
+      { num: 73, name: "HR Advisory and Outsourcing" },
+      { num: 78, name: "Outsourced IT Services" },
+      { num: 79, name: "Outsourced CFO & Financial Services" },
+      { num: 70, name: "Outsourcing Advisory & Solutions" }
+    ]
+  },
+  reg_compliance: {
+    category: "Ancillary Services",
+    title: "Regulatory Compliance & Specialized Consulting",
+    services: [
+      { num: 66, name: "Information Technology Audit & Consulting" },
+      { num: 67, name: "SBA 8(a) Business Development Consulting" },
+      { num: 68, name: "Community Development Consulting" },
+      { num: 69, name: "Association Management" },
+      { num: 82, name: "Financial Services Regulatory Compliance" }
+    ]
+  }
+};
+
+// Category name map
+const catLabels = {
+  accounting: "Accounting",
+  audit: "Audit & Attestation",
+  tax: "Tax",
+  advisory: "Advisory",
+  ancillary: "Ancillary Services"
+};
+
+const overlay = document.getElementById('modalOverlay');
+const panel = document.getElementById('modalPanel');
+const modalCatLabel = document.getElementById('modalCatLabel');
+const modalTitle = document.getElementById('modalTitle');
+const modalBody = document.getElementById('modalBody');
+const modalClose = document.getElementById('modalClose');
+
+// Open modal
+document.querySelectorAll('.sub-box').forEach(box => {
+  box.addEventListener('click', () => {
+    const subKey = box.dataset.sub;
+    const catKey = box.dataset.cat;
+    const data = serviceData[subKey];
+    if (!data) return;
+
+    panel.setAttribute('data-cat', catKey);
+    modalCatLabel.textContent = catLabels[catKey] || data.category;
+    modalTitle.textContent = data.title;
+
+    const count = data.services.length;
+    let html = `<div class="modal-service-count">${count} service${count !== 1 ? 's' : ''} in this sub-category</div>`;
+
+    data.services.forEach((svc, i) => {
+      html += `
+        <div class="service-item" style="animation-delay: ${i * 0.04}s">
+          <div class="service-num">#${svc.num}</div>
+          <div class="service-name">${svc.name}</div>
+        </div>`;
+    });
+
+    modalBody.innerHTML = html;
+    overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  });
+});
+
+// Close modal
+function closeModal() {
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+modalClose.addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) closeModal();
+});
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeModal();
+});
+</script>
+
+</body>
+</html>
